@@ -108,14 +108,3 @@
      - Bất kỳ thông tin bổ sung nào người xem xét nên biết
 
 5. **Gửi Pull Request**: Nhấn vào "Create Pull Request"
-
-### Hướng dẫn Pull Request
-
-- **Tiêu đề mô tả**: Tóm tắt các thay đổi trong 50 ký tự hoặc ít hơn
-- **Mô tả chi tiết**: Giải thích những gì và tại sao, không phải là cách
-- **Tuân thủ mẫu MVC**: Đảm bảo tất cả các thay đổi phù hợp với kiến trúc MVC
-- **Tham chiếu các vấn đề**: Nếu áp dụng, tham chiếu các vấn đề liên quan (#số-vấn-đề)
-- **Giữ PR nhỏ**: Tập trung vào việc giải quyết một vấn đề tại một thời điểm
-- **Cam kết sạch**: Đảm bảo các cam kết tuân theo định dạng cam kết quy ước
-- **Cập nhật tài liệu**: Cập nhật README hoặc tài liệu khác nếu cần
-
