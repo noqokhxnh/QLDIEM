@@ -4,10 +4,8 @@
 
 ## Mục lục
 1. [Fork repository](#fork-repository)
-2. [Hiểu về mẫu MVC](#hiểu-về-mẫu-mvc)
-3. [Thay đổi theo mô hình MVC](#thay-đổi-theo-mô-hình-mvc)
-4. [Gửi Pull Requests](#gửi-pull-requests)
-5. [Cấu trúc dự án](#cấu-trúc-dự-án)
+2. [Gửi Pull Requests](#gửi-pull-requests)
+
 
 ## Fork repository
 
@@ -33,52 +31,6 @@
    ```bash
    git remote -v
    ```
-
-## Hiểu về mẫu MVC
-
-Mẫu Model-View-Controller (MVC) chia ứng dụng thành ba thành phần liên kết với nhau, thúc đẩy sự tách biệt các mối quan tâm:
-
-### Model
-- Chứa logic kinh doanh và dữ liệu của ứng dụng.
-- Đại diện cho cấu trúc dữ liệu và xử lý các hoạt động liên quan đến dữ liệu.
-- Tương tác với cơ sở dữ liệu hoặc các dịch vụ bên ngoài.
-- Ví dụ: `Student.java`, `Grade.java`, `DatabaseConnection.java`
-
-### View
-- Quản lý lớp trình bày của ứng dụng.
-- Hiển thị dữ liệu cho người dùng và xử lý các thành phần giao diện người dùng.
-- Nên độc lập với logic kinh doanh.
-- Ví dụ: Các thành phần giao diện Swing, trang HTML hoặc định dạng đầu ra giao diện dòng lệnh
-
-### Controller
-- Đóng vai trò trung gian giữa Model và View.
-- Xử lý đầu vào của người dùng và quản lý luồng dữ liệu giữa Model và View.
-- Xử lý yêu cầu và điều phối hoạt động giữa Model và View.
-- Ví dụ: `StudentController.java`, `GradeController.java`
-
-
-## Thay đổi theo mô hình MVC
-
-Khi đóng góp cho dự án này, vui lòng tuân theo mẫu kiến trúc MVC:
-
-### Tạo tính năng mới
-
-1. **Lớp Model**: Tạo lớp model mới hoặc cải tiến những lớp hiện có.
-   - Đặt tất cả các lớp model vào gói `model`
-   - Tuân thủ đóng gói đúng cách với các trường private và các getter/setter công khai
-   - Bao gồm logic xác thực trong các lớp model khi cần thiết
-
-2. **Lớp View**: Tạo hoặc cập nhật các thành phần giao diện người dùng.
-   - Đặt tất cả các lớp view vào gói `view`
-   - Giữ cho các view đơn giản và tránh triển khai logic kinh doanh ở đây
-   - Thiết kế các view để giao tiếp với các controller
-
-3. **Lớp Controller**: Tạo các lớp controller để quản lý luồng giữa các model và view.
-   - Đặt tất cả các lớp controller vào gói `controller`
-   - Triển khai các phương thức để xử lý đầu vào của người dùng và điều phối các tương tác giữa model và view
-   - Tuân theo Nguyên tắc Trách nhiệm Đơn (Single Responsibility Principle)
-
-
 
 ## Gửi Pull Requests
 
@@ -167,17 +119,3 @@ Khi đóng góp cho dự án này, vui lòng tuân theo mẫu kiến trúc MVC:
 - **Cam kết sạch**: Đảm bảo các cam kết tuân theo định dạng cam kết quy ước
 - **Cập nhật tài liệu**: Cập nhật README hoặc tài liệu khác nếu cần
 
-
-## Cấu trúc dự án
-
-```
-QLDIEM/
-├── pom.xml              # File cấu hình Maven
-├── README.md            # Tập tin này
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │           └── mvc/
-│   │               ├── model/      # Các lớp của tầng Model
-│   │               ├── view/       # Các lớp của tầng View
-│   │               └── controller/ # Các lớp của tầng Controller
