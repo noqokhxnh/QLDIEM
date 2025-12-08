@@ -24,6 +24,11 @@ public class LoginModel {
         this.password = password;
     }
 
+    public LoginModel() {
+        
+    }
+    
+
 
     public String getUsername() {
         return username;
@@ -51,43 +56,23 @@ public class LoginModel {
 
 
 
-    public boolean checklogin(String a, String b){
-        String query = "Select 1 from tbluser where username = ? and password =? ";
-        try {
-            Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, a);
-            ps.setString(2, b);
-
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()){
-                System.out.println("Dang nhap thanh cong");
-
-            }else {
-
-                return  false;
+       public boolean checklogin(String username, String password) {
+        String query = "Select * from tbluser where `username` =? and `password` =?";
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+        ) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
             }
-
-        } catch (Exception ex){
-            ex.printStackTrace();
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
         return false;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
