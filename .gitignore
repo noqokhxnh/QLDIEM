@@ -1,308 +1,44 @@
-# Maven
+# Maven build output
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-# IDE
-.idea/
-*.iws
-*.iml
-*.ipr
-*.swp
-*~
-*.tmp
-
-# OS
-.DS_Store
-Thumbs.db
-.DS_Store?
-ehthumbs.db
-Icon?
-Network Trash Folder
-Temporary Items
-.metadata
-lost+found
-.vagrant
-.sass-cache
-
-# Logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
-# node-waf
-.lock-wscript
-
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# TypeScript v1 declaration files
-typings/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Compile and build output for Java projects
-bin/
-# Hibernate
-hibernate.cfg.xml
-
-# gradle
-.gradle
-!gradle/wrapper/gradle-wrapper.jar
+# Java compiled classes
+*.class
 
 # IntelliJ IDEA
+.idea/
 *.iml
-*.iws
-*.ipr
 out/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
 # Eclipse
 .project
 .classpath
 .settings/
 bin/
-tmp/
-.metadata
 
-# NetBeans
-/nbproject/private/
-/nbproject/project.properties
-/nbproject/project.xml
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Logs
+*.log
 
-# JDeveloper
-*.jpx
-*.jpr
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env
+.env
 
 # VSCode
 .vscode/
 
-# Class files
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# java log files
-*.log
-
-# local configuration file (sdk properties, please use .properties only)
-local.properties
-
-# Mobile development
-*.apk
-*.aab
-
-# Fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
-fastlane/buildlog.txt
-
-# Coveralls generated coverage report
-coverage/lcov-report
-
-# Carthage
-Carthage/Build
-
-# Nim C output
-*.nim.c
-
-# CocoaPods
-Pods/
-
-# Mac built application
-*.app
-
-# Android
-*.apk
-*.aar
-*.ap_
-
-# Cordova
-hooks/
-*.apk
-*.ap_
-platforms/
-plugins/
-www/
-
-# Ionic
-ionic/www/
-
-# React Native
-node_modules/
-ios/Pods/
-ios/build/
-android/build/
-android/app/build/
-
-# Electron
-node_modules/
-dist/
-
-# Unity
-Library/
-Temp/
-obj/
-Build/
-
-# Unreal Engine
-Intermediate/
-Saved/
-Binaries/
-
-# CMake
-CMakeFiles/
-cmake_install.manifest
-CMakeCache.txt
-CMakeScripts/
-
-# Qt
-*.pro.user
-*.pro.user.*
-*.qbs.user
-*.qbs.user.*
-*.moc
-*.moc.cpp
-*.qm
-Makefile
-Makefile.user
-
-# Qt Creator
-*.creator
-*.creator.user
-
-# Meson
-meson-private/
-meson-logs/
-
-# Code::Blocks
-*.depend
-*.layout
-*.cbp
-
-# Dev-C++
-*.dev
-
-# KDevelop
-*.kdev4
-
-# CLion
-cmake-build-*/
-
-# Visual Studio Code
-.vscode/
-
-# Sublime Text
-*.sublime-workspace
-*.sublime-project
-
-# Vim
-*.swp
-*.swo
-*~
-.netrwhist
-.swpx
-
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-*.elc
-auto-save-list
-tramp
-.\#*
-
-# Nano
-.nano_history
-
 # Backup files
 *.bak
-*.backup
 *.old
 *.orig
+*.tmp
 *~
-*.save
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Icon?
-*/
