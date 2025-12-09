@@ -59,7 +59,7 @@ public class MainLayout extends JFrame {
 
         panel_main.add(new SinhVienPanel(), "SV");
 //        panel_main.add(new LopPanel(), "LOP");
-//        panel_main.add(new DiemPanel(), "DIEM");
+        panel_main.add(new DiemPanel(), "DIEM");
 //        panel_main.add(new GiaoVienPanel(), "GV");
 //        panel_main.add(new KhoaPanel(), "KHOA");
 //        panel_main.add(new MonHocPanel(), "MONHOC");
@@ -75,7 +75,7 @@ public class MainLayout extends JFrame {
     }
 
     public CardLayout getCardLayout() {
-        return cardLayout;
+        return (CardLayout) this.panel_main.getLayout();
     }
 
     public void onSinhVienClick(ActionListener l) { btnSinhVien.addActionListener(l); }
