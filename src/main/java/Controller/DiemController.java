@@ -114,8 +114,9 @@ public class DiemController implements MouseListener, ActionListener {
             }
             int confirm = JOptionPane.showConfirmDialog(view, "Bạn có chắc muốn xóa?");
             if (confirm == JOptionPane.YES_OPTION) {
-                int id = Integer.parseInt(view.getTblDiem().getValueAt(row, 0).toString());
-                if (model.deleteDiem(id)) {
+String masv = view.getTblDiem().getValueAt(row, 1).toString();
+
+                if (model.deleteDiem(masv)) {
                     JOptionPane.showMessageDialog(view, "Xóa thành công!");
                     view.loadtable(model.getDs());
 

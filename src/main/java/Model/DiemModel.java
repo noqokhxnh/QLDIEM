@@ -210,10 +210,10 @@ public class DiemModel {
         }
     }
 
-    public boolean deleteDiem(int id) {
-        String query = "DELETE FROM tbldiem WHERE id=?";
+    public boolean deleteDiem(String masv) {
+        String query = "DELETE FROM tbldiem WHERE masv=?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
+            ps.setString(1, masv);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
