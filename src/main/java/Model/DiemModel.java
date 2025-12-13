@@ -34,7 +34,7 @@ public class DiemModel {
         this.diemcc = diemcc;
         this.diemgk = diemgk;
         this.diemck = diemck;
-        this.diemtongket = diemtongket; // Store the DB value but getter will calculate it
+        this.diemtongket = diemtongket; 
     }
 
    
@@ -134,7 +134,9 @@ public class DiemModel {
     public ArrayList<DiemModel> getDs() {
         ArrayList<DiemModel> list = new ArrayList<>();
         String query = "SELECT * FROM tbldiem";
-        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 DiemModel d = new DiemModel(
@@ -164,7 +166,9 @@ public class DiemModel {
         }
 
         String query = "INSERT INTO tbldiem (masv, mamon, hocky, namhoc, diemcc, diemgk, diemck, diemtongket) VALUES (?,?,?,?,?,?,?,?)";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query))
+        {
 
             ps.setString(1, d.getMasv());
             ps.setString(2, d.getMamon());
@@ -191,7 +195,9 @@ public class DiemModel {
 
         String query = "UPDATE tbldiem SET masv=?, mamon=?, hocky=?, namhoc=?, diemcc=?, diemgk=?, diemck=?, diemtongket=? WHERE masv=?";
         try (
-                Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query))
+        {
 
             ps.setString(1, d.getMasv());
             ps.setString(2, d.getMamon());
@@ -212,7 +218,9 @@ public class DiemModel {
 
     public boolean deleteDiem(String masv) {
         String query = "DELETE FROM tbldiem WHERE masv=?";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query))
+        {
             ps.setString(1, masv);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -225,7 +233,8 @@ public ArrayList<DiemModel> search(String masvCanTim) {
     ArrayList<DiemModel> list = new ArrayList<>();
     String query = "SELECT * FROM tbldiem WHERE masv LIKE ?"; 
     try (Connection conn = DatabaseConnection.getConnection(); 
-         PreparedStatement ps = conn.prepareStatement(query)) {
+         PreparedStatement ps = conn.prepareStatement(query))
+    {
         
         ps.setString(1, "%" + masvCanTim + "%"); 
         ResultSet rs = ps.executeQuery();

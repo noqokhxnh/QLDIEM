@@ -169,7 +169,7 @@ public class DiemPanel extends JPanel {
         btnXacnhan.addActionListener(a);
         btnHuy.addActionListener(a);
         btnSearch.addActionListener(a);
-        
+
     }
 
     public void addTableMouseAction(MouseListener a) {
@@ -178,7 +178,6 @@ public class DiemPanel extends JPanel {
     }
 
     public DiemModel getformdata() {
-       
 
         String msv = tfmsv.getText().trim();
         String mm = tfmm.getText().trim();
@@ -224,7 +223,7 @@ public class DiemPanel extends JPanel {
 
         double tk = (cc * 10 + gk * 30 + ck * 60) / 100;
 
-        return new DiemModel( msv, mm, hk, nh, cc, gk, ck, tk);
+        return new DiemModel(msv, mm, hk, nh, cc, gk, ck, tk);
     }
 
     public void fillform(DiemModel d) {
@@ -280,8 +279,8 @@ public class DiemPanel extends JPanel {
         btnXacnhan.setVisible(b);
         btnHuy.setVisible(b);
     }
-    
+
     public String getSearchKeyword() {
-    return tfsearch.getText().trim();
-}
+        return tfsearch.getText().trim();
+    }
 }

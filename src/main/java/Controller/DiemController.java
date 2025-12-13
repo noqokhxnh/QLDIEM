@@ -35,12 +35,13 @@ public class DiemController implements MouseListener, ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       int row = view.getTblDiem().getSelectedRow();
-        if (row >=0){
+        int row = view.getTblDiem().getSelectedRow();
+        if (row >= 0) {
             DiemModel nv = model.getDs().get(row);
             view.fillform(nv);
         }
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -114,7 +115,7 @@ public class DiemController implements MouseListener, ActionListener {
             }
             int confirm = JOptionPane.showConfirmDialog(view, "Bạn có chắc muốn xóa?");
             if (confirm == JOptionPane.YES_OPTION) {
-String masv = view.getTblDiem().getValueAt(row, 1).toString();
+                String masv = view.getTblDiem().getValueAt(row, 1).toString();
 
                 if (model.deleteDiem(masv)) {
                     JOptionPane.showMessageDialog(view, "Xóa thành công!");
@@ -156,18 +157,15 @@ String masv = view.getTblDiem().getValueAt(row, 1).toString();
             check = 0;
             view.clearform();
             view.on_off(true, false);
-        }else if (command.equals("🔍")) {
-           String keyword = view.getSearchKeyword(); 
-        if (keyword.isEmpty()) {
-            view.loadtable(model.getDs());
-        } else {
-            ArrayList<DiemModel> kq = model.search(keyword);
-            view.loadtable(kq);
-        }
+        } else if (command.equals("🔍")) {
+            String keyword = view.getSearchKeyword();
+            if (keyword.isEmpty()) {
+                view.loadtable(model.getDs());
+            } else {
+                ArrayList<DiemModel> kq = model.search(keyword);
+                view.loadtable(kq);
+            }
         }
     }
 
-    
-
-    
 }

@@ -9,7 +9,6 @@ package Controller;
  * @author noqok
  */
 import Model.LoginModel;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;

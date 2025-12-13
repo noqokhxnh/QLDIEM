@@ -57,7 +57,7 @@ public class LoginModel {
 
 
        public boolean checklogin(String username, String password) {
-        String query = "Select * from tbluser where `username` =? and `password` =?";
+        String query = "Select 1 from tbluser where `username` =? and `password` =?";
         try (
                 Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query);
