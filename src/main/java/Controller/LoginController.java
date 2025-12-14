@@ -14,16 +14,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import View.LoginView;
+import View.MainLayout;
 
 public class LoginController implements ActionListener, MouseListener {
 
     private LoginView view;
     private LoginModel model;
 
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         String cmd = actionEvent.getActionCommand();
-
         if (cmd.equals("Đăng nhập")) {
             String username = view.getTxtUsername().getText();
             String password = new String(view.getTxtPassword().getPassword());
@@ -31,6 +32,8 @@ public class LoginController implements ActionListener, MouseListener {
             if (model.checklogin(username, password)) {
                 System.out.println(username+" da dang nhap");                
                 view.dispose();
+                MainLayout mainLayout = new MainLayout();
+                MainController mainController = new MainController(mainLayout, username);
 
             } else {
                 System.out.println("Dang nhap that bai");

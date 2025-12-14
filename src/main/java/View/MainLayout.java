@@ -7,9 +7,7 @@ package View;
  *
  * @author noqok
  */
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +24,9 @@ public class MainLayout extends JFrame {
     private JButton btnGiaoVien;
     private JButton btnKhoa;
     private JButton btnMonHoc;
+    private JButton btnTTTK;
+
+
 
     public MainLayout() {
         initUI();
@@ -45,17 +46,18 @@ public class MainLayout extends JFrame {
         btnGiaoVien = new JButton("Quản Lý Giáo Viên");
         btnKhoa = new JButton("Quản Lý Khoa");
         btnMonHoc = new JButton("Quản Lý Môn Học");
-
-        JPanel panel_menu = new JPanel(new GridLayout(7, 1, 5, 5));
+        btnTTTK = new JButton("Thông tin tài khoản");
+        JPanel panel_menu = new JPanel(new GridLayout(7,1, 5, 5));
         panel_menu.add(btnDiem);
         panel_menu.add(btnLop);
         panel_menu.add(btnSinhVien);
         panel_menu.add(btnGiaoVien);
         panel_menu.add(btnKhoa);
         panel_menu.add(btnMonHoc);
-
+        panel_menu.add(btnTTTK);
         cardLayout = new CardLayout();
         panel_main = new JPanel(cardLayout);
+
 
         panel_main.add(new SinhVienPanel(), "SV");
 //        panel_main.add(new LopPanel(), "LOP");
@@ -63,6 +65,7 @@ public class MainLayout extends JFrame {
 //        panel_main.add(new GiaoVienPanel(), "GV");
 //        panel_main.add(new KhoaPanel(), "KHOA");
 //        panel_main.add(new MonHocPanel(), "MONHOC");
+        panel_main.add(new ThongTinTaiKhoan(), "TT");
 
         add(panel_menu, BorderLayout.WEST);
         add(panel_main, BorderLayout.CENTER);
@@ -84,5 +87,6 @@ public class MainLayout extends JFrame {
     public void onGVClick(ActionListener l) { btnGiaoVien.addActionListener(l); }
     public void onKhoaClick(ActionListener l) { btnKhoa.addActionListener(l); }
     public void onMonHocClick(ActionListener l) { btnMonHoc.addActionListener(l); }
+    public void onTTClick(ActionListener l ){btnTTTK.addActionListener(l);}
 
 }

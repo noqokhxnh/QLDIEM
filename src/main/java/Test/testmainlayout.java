@@ -9,10 +9,14 @@ package Test;
  */
 
 import Controller.DiemController;
+import Controller.ThongTinTaiKhoanController;
+import Model.SinhVienModel;
 import View.MainLayout;
 import Controller.MainController;
 import Model.DiemModel;
 import View.DiemPanel;
+import View.ThongTinTaiKhoan;
+
 import javax.swing.SwingUtilities;
 
 public class testmainlayout {
@@ -22,16 +26,18 @@ public class testmainlayout {
                 DiemModel diemmodel = new DiemModel();
                 DiemPanel diemview = new DiemPanel();
                 DiemController diemControl = new DiemController(diemview, diemmodel);
-
                 MainLayout mainLayout = new MainLayout();
 
-                mainLayout.getMainPanel().add(diemview, "DIEM");
+        ThongTinTaiKhoan thongTinTaiKhoanview = new ThongTinTaiKhoan();
+        SinhVienModel sinhVienModel = new SinhVienModel();
+        ThongTinTaiKhoanController thongTinTaiKhoanController = new ThongTinTaiKhoanController(sinhVienModel,  thongTinTaiKhoanview, "sv001");
 
-                MainController mainControl = new MainController(mainLayout);
+                mainLayout.getMainPanel().add(diemview, "DIEM");
+                mainLayout.getMainPanel().add(thongTinTaiKhoanview, "TT");
+                MainController mainControl = new MainController(mainLayout, "sv001");
 
                 mainLayout.setVisible(true);
 
-                // Load initial data
                 diemview.loadtable(diemmodel.getDs());
            
     }
