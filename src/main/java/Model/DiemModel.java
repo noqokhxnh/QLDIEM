@@ -193,7 +193,7 @@ public class DiemModel {
             return false;
         }
 
-        String query = "UPDATE tbldiem SET masv=?, mamon=?, hocky=?, namhoc=?, diemcc=?, diemgk=?, diemck=?, diemtongket=? WHERE masv=?";
+        String query = "UPDATE tbldiem SET masv=?, mamon=?, hocky=?, namhoc=?, diemcc=?, diemgk=?, diemck=?, diemtongket=? WHERE masv=? and mamon =? and hocky=?";
         try (
                 Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query))
@@ -208,6 +208,8 @@ public class DiemModel {
             ps.setDouble(7, d.getDiemck());
             ps.setDouble(8, d.getDiemtongket());
             ps.setString(9, d.getMasv());
+            ps.setString(10,d.getMamon());
+            ps.setInt(11, d.getHocky());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
