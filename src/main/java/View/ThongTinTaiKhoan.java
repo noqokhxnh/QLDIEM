@@ -4,6 +4,7 @@ import Model.SinhVienModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ThongTinTaiKhoan extends JPanel {
 
@@ -31,7 +32,7 @@ public class ThongTinTaiKhoan extends JPanel {
         display();
     }
 
-    private void display(){
+    public void display(){
         this.setSize(900, 750);
         lblUsername = new JLabel("Tên tài khoản");
         lblMaSv = new JLabel("Mã sinh viên");
@@ -50,6 +51,7 @@ public class ThongTinTaiKhoan extends JPanel {
         txtMaLop = new JLabel("");
 
         btnDoiMatKhau = new JButton("Đổi mật khẩu");
+        btnDoiMatKhau.setActionCommand("BTN_DOI_MAT_KHAU");
         btnDangXuat = new JButton("Đăng xuất");
 
         JPanel pnun = new JPanel(new GridLayout(1,2,5,5));
@@ -107,6 +109,10 @@ public class ThongTinTaiKhoan extends JPanel {
         txtDiaChi.setText(model.getDiachi());
         txtMaLop.setText(model.getMalop());
         txtUsername.setText(model.getUsername());
+    }
+
+    public void setDoiMatKhauActionListener(ActionListener a) {
+        btnDoiMatKhau.addActionListener(a);
     }
 
 }

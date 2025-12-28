@@ -147,7 +147,7 @@ public class DiemModel {
                         rs.getDouble("diemcc"),
                         rs.getDouble("diemgk"),
                         rs.getDouble("diemck"),
-                        rs.getDouble("diemtongket") // Nếu DB ko lưu cột này thì bỏ qua
+                        rs.getDouble("diemtongket")
                 );
                 list.add(d);
                

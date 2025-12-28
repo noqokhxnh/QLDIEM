@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import View.LoginView;
 import View.MainLayout;
+import Test.testmainlayout;
+import com.mysql.cj.util.TestUtils;
 
 public class LoginController implements ActionListener, MouseListener {
 
@@ -34,7 +36,7 @@ public class LoginController implements ActionListener, MouseListener {
                 view.dispose();
                 MainLayout mainLayout = new MainLayout();
                 MainController mainController = new MainController(mainLayout, username);
-
+                mainLayout.setVisible(true);
             } else {
                 System.out.println("Dang nhap that bai");
             }

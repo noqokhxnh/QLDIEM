@@ -4,6 +4,7 @@ import connection.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class LoginModel {
@@ -74,7 +75,23 @@ public class LoginModel {
         return false;
     }
 
+        public void DoiMatKhau(String username, String password){
+            String query ="Update tbluser set password =? where username =?";
+            try (
+                    Connection connection = DatabaseConnection.getConnection();
+                  PreparedStatement preparedStatement = connection.prepareStatement(query);){
+                preparedStatement.setString(1, password);
+                preparedStatement.setString(2,username);
+                int rowsAffected = preparedStatement.executeUpdate();
 
+                if (rowsAffected > 0) {
+                    System.out.println("Doi mat khau thanh cong");
+                } else {
+                    System.out.println("ERROR");
+                }
+            } catch (SQLException e) {
+            }
+        }
 
 
 }
