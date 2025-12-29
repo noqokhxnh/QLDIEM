@@ -11,7 +11,6 @@ import java.awt.event.MouseListener;
 import View.MonHocPanel;
 import Model.MonHocModel;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,7 +84,7 @@ public class MonHocController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblMonHoc().getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa!");
                 return;
             }
             check = 2;
@@ -94,42 +93,40 @@ public class MonHocController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblMonHoc().getSelectedRow();
             if (row < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa!");
                 return;
             }
-            int confirm = JOptionPane.showConfirmDialog(view, "Bạn có chắc muốn xóa?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                String mamon = view.getTblMonHoc().getValueAt(row, 0).toString();
+            System.out.println("Bạn có chắc muốn xóa?");
+            String mamon = view.getTblMonHoc().getValueAt(row, 0).toString();
 
-                if (model.deleteMonHoc(mamon)) {
-                    JOptionPane.showMessageDialog(view, "Xóa thành công!");
-                    view.loadtable(model.getDs());
+            if (model.deleteMonHoc(mamon)) {
+                System.out.println("Xóa thành công!");
+                view.loadtable(model.getDs());
 
-                    view.clearform();
-                } else {
-                    JOptionPane.showMessageDialog(view, "Xóa thất bại!");
-                }
+                view.clearform();
+            } else {
+                System.out.println("Xóa thất bại!");
             }
         } else if (command.equals("Xác nhận")) {
             MonHocModel m = view.getformdata();
 
             String validationError = validateInput(m);
             if (validationError != null) {
-                JOptionPane.showMessageDialog(view, validationError);
+                System.out.println(validationError);
                 return;
             }
 
             if (check == 1) {
                 if (model.insertMonHoc(m)) {
-                    JOptionPane.showMessageDialog(view, "Thêm thành công!");
+                    System.out.println("Thêm thành công!");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Thêm thất bại!");
+                    System.out.println("Thêm thất bại!");
                 }
             } else if (check == 2) {
                 if (model.updateMonHoc(m)) {
-                    JOptionPane.showMessageDialog(view, "Sửa thành công!");
+                    System.out.println("Sửa thành công!");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Sửa thất bại!");
+                    System.out.println("Sửa thất bại!");
                 }
             }
 

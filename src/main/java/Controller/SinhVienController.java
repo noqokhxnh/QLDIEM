@@ -8,22 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.KhoaPanel;
-import Model.KhoaModel;
+import View.SinhVienPanel;
+import Model.SinhVienModel;
 import java.util.ArrayList;
 
 /**
  *
  * @author noqok
  */
-public class KhoaController implements MouseListener, ActionListener {
+public class SinhVienController implements MouseListener, ActionListener {
 
-    private KhoaPanel view;
-    private KhoaModel model;
+    private SinhVienPanel view;
+    private SinhVienModel model;
     int pos = 0;
     int check = 0;
 
-    public KhoaController(KhoaPanel view, KhoaModel model) {
+    public SinhVienController(SinhVienPanel view, SinhVienModel model) {
         this.view = view;
         this.model = model;
         view.on_off(true, false);
@@ -34,10 +34,17 @@ public class KhoaController implements MouseListener, ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int row = view.getTblKhoa().getSelectedRow();
+        int row = view.getTblSinhVien().getSelectedRow();
         if (row >= 0) {
-            KhoaModel k = model.getDs().get(row);
-            view.fillform(k);
+            String masv = view.getTblSinhVien().getValueAt(row, 0).toString();
+            String hoten = view.getTblSinhVien().getValueAt(row, 1).toString();
+            String ngaysinh = view.getTblSinhVien().getValueAt(row, 2) != null ? view.getTblSinhVien().getValueAt(row, 2).toString() : "";
+            String gioitinh = view.getTblSinhVien().getValueAt(row, 3) != null ? view.getTblSinhVien().getValueAt(row, 3).toString() : "";
+            String diachi = view.getTblSinhVien().getValueAt(row, 4) != null ? view.getTblSinhVien().getValueAt(row, 4).toString() : "";
+            String malop = view.getTblSinhVien().getValueAt(row, 5) != null ? view.getTblSinhVien().getValueAt(row, 5).toString() : "";
+            String username = view.getTblSinhVien().getValueAt(row, 6) != null ? view.getTblSinhVien().getValueAt(row, 6).toString() : "";
+            SinhVienModel sv = new SinhVienModel(username, masv, hoten, ngaysinh, gioitinh, diachi, malop);
+            view.fillform(sv);
         }
     }
 
@@ -57,13 +64,13 @@ public class KhoaController implements MouseListener, ActionListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    private String validateInput(KhoaModel k) {
-        if (k.getMakhoa() == null || k.getMakhoa().trim().isEmpty()) {
-            return "Mã khoa không được để trống!";
+    private String validateInput(SinhVienModel sv) {
+        if (sv.getMasv() == null || sv.getMasv().trim().isEmpty()) {
+            return "Mã sinh viên không được để trống!";
         }
 
-        if (k.getTenkhoa() == null || k.getTenkhoa().trim().isEmpty()) {
-            return "Tên khoa không được để trống!";
+        if (sv.getHoten() == null || sv.getHoten().trim().isEmpty()) {
+            return "Họ tên không được để trống!";
         }
 
         return null;
@@ -79,7 +86,7 @@ public class KhoaController implements MouseListener, ActionListener {
             view.on_off(false, true);
 
         } else if (command.equals("Sửa")) {
-            if (view.getTblKhoa().getSelectedRow() < 0) {
+            if (view.getTblSinhVien().getSelectedRow() < 0) {
                 System.out.println("Vui lòng chọn dòng để sửa!");
                 return;
             }
@@ -87,15 +94,15 @@ public class KhoaController implements MouseListener, ActionListener {
             view.on_off(false, true);
 
         } else if (command.equals("Xóa")) {
-            int row = view.getTblKhoa().getSelectedRow();
+            int row = view.getTblSinhVien().getSelectedRow();
             if (row < 0) {
                 System.out.println("Vui lòng chọn dòng để xóa!");
                 return;
             }
             System.out.println("Bạn có chắc muốn xóa?");
-            String makhoa = view.getTblKhoa().getValueAt(row, 0).toString();
+            String masv = view.getTblSinhVien().getValueAt(row, 0).toString();
 
-            if (model.deleteKhoa(makhoa)) {
+            if (model.deleteSinhVien(masv)) {
                 System.out.println("Xóa thành công!");
                 view.loadtable(model.getDs());
 
@@ -104,22 +111,22 @@ public class KhoaController implements MouseListener, ActionListener {
                 System.out.println("Xóa thất bại!");
             }
         } else if (command.equals("Xác nhận")) {
-            KhoaModel k = view.getformdata();
+            SinhVienModel sv = view.getformdata();
 
-            String validationError = validateInput(k);
+            String validationError = validateInput(sv);
             if (validationError != null) {
                 System.out.println(validationError);
                 return;
             }
 
             if (check == 1) {
-                if (model.insertKhoa(k)) {
+                if (model.insertSinhVien(sv)) {
                     System.out.println("Thêm thành công!");
                 } else {
                     System.out.println("Thêm thất bại!");
                 }
             } else if (check == 2) {
-                if (model.updateKhoa(k)) {
+                if (model.updateSinhVien(sv)) {
                     System.out.println("Sửa thành công!");
                 } else {
                     System.out.println("Sửa thất bại!");
@@ -139,7 +146,7 @@ public class KhoaController implements MouseListener, ActionListener {
             if (keyword.isEmpty()) {
                 view.loadtable(model.getDs());
             } else {
-                ArrayList<KhoaModel> kq = model.search(keyword);
+                ArrayList<SinhVienModel> kq = model.search(keyword);
                 view.loadtable(kq);
             }
         }

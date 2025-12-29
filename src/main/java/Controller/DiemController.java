@@ -8,10 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.DiemPanel;
-import Model.DiemModel;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+
+import Model.DiemModel;
+import View.DiemPanel;
 
 /**
  *
@@ -60,31 +60,31 @@ public class DiemController implements MouseListener, ActionListener {
 
     private String validateInput(DiemModel d) {
         if (d.getMasv() == null || d.getMasv().trim().isEmpty()) {
-            return "Mã sinh viên không được để trống!";
+            return "Mã sinh viên không được để trống";
         }
 
         if (d.getMamon() == null || d.getMamon().trim().isEmpty()) {
-            return "Mã môn học không được để trống!";
+            return "Mã môn học không được để trống";
         }
 
         if (d.getHocky() < 1 || d.getHocky() > 3) {
-            return "Học kỳ phải là 1, 2 hoặc 3!";
+            return "Học kỳ phải là 1, 2 hoặc 3";
         }
 
         if (d.getNamhoc() == null || d.getNamhoc().trim().isEmpty()) {
-            return "Năm học không được để trống!";
+            return "Năm học không được để trống";
         }
 
         if (d.getDiemcc() < 0 || d.getDiemcc() > 10) {
-            return "Điểm chuyên cần phải từ 0 đến 10!";
+            return "Điểm chuyên cần phải từ 0 đến 10";
         }
 
         if (d.getDiemgk() < 0 || d.getDiemgk() > 10) {
-            return "Điểm giữa kỳ phải từ 0 đến 10!";
+            return "Điểm giữa kỳ phải từ 0 đến 10";
         }
 
         if (d.getDiemck() < 0 || d.getDiemck() > 10) {
-            return "Điểm cuối kỳ phải từ 0 đến 10!";
+            return "Điểm cuối kỳ phải từ 0 đến 10";
         }
 
         return null;
@@ -101,7 +101,7 @@ public class DiemController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblDiem().getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa");
                 return;
             }
             check = 2;
@@ -110,42 +110,40 @@ public class DiemController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblDiem().getSelectedRow();
             if (row < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa");
                 return;
             }
-            int confirm = JOptionPane.showConfirmDialog(view, "Bạn có chắc muốn xóa?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                String masv = view.getTblDiem().getValueAt(row, 1).toString();
+            System.out.println("Bạn có chắc muốn xóa?");
+            String masv = view.getTblDiem().getValueAt(row, 1).toString();
 
-                if (model.deleteDiem(masv)) {
-                    JOptionPane.showMessageDialog(view, "Xóa thành công!");
-                    view.loadtable(model.getDs());
+            if (model.deleteDiem(masv)) {
+                System.out.println("Xóa thành công");
+                view.loadtable(model.getDs());
 
-                    view.clearform();
-                } else {
-                    JOptionPane.showMessageDialog(view, "Xóa thất bại!");
-                }
+                view.clearform();
+            } else {
+                System.out.println("Xóa thất bại");
             }
         } else if (command.equals("Xác nhận")) {
             DiemModel d = view.getformdata();
 
             String validationError = validateInput(d);
             if (validationError != null) {
-                JOptionPane.showMessageDialog(view, validationError);
+                System.out.println(validationError);
                 return;
             }
 
             if (check == 1) {
                 if (model.insertDiem(d)) {
-                    JOptionPane.showMessageDialog(view, "Thêm thành công!");
+                    System.out.println("Thêm thành công");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Thêm thất bại!");
+                    System.out.println("Thêm thất bại");
                 }
             } else if (check == 2) {
                 if (model.updateDiem(d)) {
-                    JOptionPane.showMessageDialog(view, "Sửa thành công!");
+                    System.out.println("Sửa thành công");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Sửa thất bại!");
+                    System.out.println("Sửa thất bại");
                 }
             }
 

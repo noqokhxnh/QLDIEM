@@ -7,6 +7,7 @@ import Model.MonHocModel;
 import Model.LopModel;
 import Model.GiaoVienModel;
 import View.DiemPanel;
+import View.SinhVienPanel;
 import View.KhoaPanel;
 import View.MonHocPanel;
 import View.LopPanel;
@@ -15,6 +16,7 @@ import View.MainLayout;
 import View.ThongTinTaiKhoan;
 import Controller.ThongTinTaiKhoanController;
 import Controller.DiemController;
+import Controller.SinhVienController;
 import Controller.KhoaController;
 import Controller.MonHocController;
 import Controller.LopController;
@@ -51,6 +53,13 @@ public class MainController {
         view.getMainPanel().add(viewThongTinTaiKhoan,"TT");
         SinhVienModel sinhVienModel = new SinhVienModel();
         ThongTinTaiKhoanController thongTinTaiKhoanController = new ThongTinTaiKhoanController(sinhVienModel, viewThongTinTaiKhoan, username);
+
+        SinhVienPanel sinhVienPanel = getSinhVienPanelFromLayout();
+        if (sinhVienPanel != null) {
+            SinhVienModel svModel = new SinhVienModel();
+            SinhVienController svController = new SinhVienController(sinhVienPanel, svModel);
+            sinhVienPanel.loadtable(svModel.getDs());
+        }
 
         DiemPanel diemPanel = getDiemPanelFromLayout();
         if (diemPanel != null) {
@@ -105,6 +114,17 @@ public class MainController {
     private void show(String name) {
         CardLayout cl = view.getCardLayout();
         cl.show(view.getMainPanel(), name);
+    }
+
+    private SinhVienPanel getSinhVienPanelFromLayout() {
+        JPanel mainPanel = view.getMainPanel();
+        
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof SinhVienPanel) {
+                return (SinhVienPanel) comp;
+            }
+        }
+        return null;
     }
 
     private DiemPanel getDiemPanelFromLayout() {

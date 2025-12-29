@@ -8,10 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.GiaoVienPanel;
-import Model.GiaoVienModel;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+
+import Model.GiaoVienModel;
+import View.GiaoVienPanel;
 
 /**
  *
@@ -60,16 +60,16 @@ public class GiaoVienController implements MouseListener, ActionListener {
 
     private String validateInput(GiaoVienModel gv) {
         if (gv.getMagv() == null || gv.getMagv().trim().isEmpty()) {
-            return "Mã giáo viên không được để trống!";
+            return "Mã giáo viên không được để trống";
         }
 
         if (gv.getHoten() == null || gv.getHoten().trim().isEmpty()) {
-            return "Họ tên không được để trống!";
+            return "Họ tên không được để trống";
         }
 
         if (gv.getEmail() != null && !gv.getEmail().trim().isEmpty()) {
             if (!gv.getEmail().contains("@") || !gv.getEmail().contains(".")) {
-                return "Email không hợp lệ!";
+                return "Email không hợp lệ";
             }
         }
 
@@ -87,7 +87,7 @@ public class GiaoVienController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblGiaoVien().getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa");
                 return;
             }
             check = 2;
@@ -96,42 +96,40 @@ public class GiaoVienController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblGiaoVien().getSelectedRow();
             if (row < 0) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa");
                 return;
             }
-            int confirm = JOptionPane.showConfirmDialog(view, "Bạn có chắc muốn xóa?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                String magv = view.getTblGiaoVien().getValueAt(row, 0).toString();
+            System.out.println("Bạn có chắc muốn xóa?");
+            String magv = view.getTblGiaoVien().getValueAt(row, 0).toString();
 
-                if (model.deleteGiaoVien(magv)) {
-                    JOptionPane.showMessageDialog(view, "Xóa thành công!");
-                    view.loadtable(model.getDs());
+            if (model.deleteGiaoVien(magv)) {
+                System.out.println("Xóa thành công");
+                view.loadtable(model.getDs());
 
-                    view.clearform();
-                } else {
-                    JOptionPane.showMessageDialog(view, "Xóa thất bại!");
-                }
+                view.clearform();
+            } else {
+                System.out.println("Xóa thất bại");
             }
         } else if (command.equals("Xác nhận")) {
             GiaoVienModel gv = view.getformdata();
 
             String validationError = validateInput(gv);
             if (validationError != null) {
-                JOptionPane.showMessageDialog(view, validationError);
+                System.out.println(validationError);
                 return;
             }
 
             if (check == 1) {
                 if (model.insertGiaoVien(gv)) {
-                    JOptionPane.showMessageDialog(view, "Thêm thành công!");
+                    System.out.println("Thêm thành công");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Thêm thất bại!");
+                    System.out.println("Thêm thất bại");
                 }
             } else if (check == 2) {
                 if (model.updateGiaoVien(gv)) {
-                    JOptionPane.showMessageDialog(view, "Sửa thành công!");
+                    System.out.println("Sửa thành công");
                 } else {
-                    JOptionPane.showMessageDialog(view, "Sửa thất bại!");
+                    System.out.println("Sửa thất bại");
                 }
             }
 
