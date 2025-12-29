@@ -88,16 +88,18 @@ public class ThongTinTaiKhoan extends JPanel {
         pnbt.add(btnDoiMatKhau);
         pnbt.add(btnDangXuat);
         
-        this.setLayout(new GridLayout(8,2,0,0));
-
-        this.add(pnun);
-        this.add(pnsv);
-        this.add(pnht);
-        this.add(pnns);
-        this.add(pngt);
-        this.add(pndc);
-        this.add(pnml);
-        this.add(pnbt);
+        JPanel pnMain = new JPanel(new GridLayout(8, 1, 5, 5));
+        pnMain.add(pnun);
+        pnMain.add(pnsv);
+        pnMain.add(pnht);
+        pnMain.add(pnns);
+        pnMain.add(pngt);
+        pnMain.add(pndc);
+        pnMain.add(pnml);
+        pnMain.add(pnbt);
+        
+        this.setLayout(new BorderLayout());
+        this.add(pnMain, BorderLayout.CENTER);
 
     }
 

@@ -4,12 +4,15 @@
  */
 package View;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -113,9 +116,9 @@ public class LopPanel extends JPanel {
         model = new DefaultTableModel(tencot, 0);
         tblLop = new JTable(model);
 
-        JPanel pnTable = new JPanel();
-        pnTable.add(tblLop.getTableHeader());
-        pnTable.add(tblLop);
+        JPanel pnTable = new JPanel(new BorderLayout());
+        pnTable.add(tblLop.getTableHeader(), BorderLayout.NORTH);
+        pnTable.add(tblLop, BorderLayout.CENTER);
 
         this.setLayout(new GridLayout(3, 1, 5, 5));
         this.add(pnForm);
@@ -184,6 +187,9 @@ public class LopPanel extends JPanel {
             };
             model.addRow(dulieubang);
         }
+        model.fireTableDataChanged();
+        this.revalidate();
+        this.repaint();
     }
 
     public void on_off(boolean a, boolean b) {

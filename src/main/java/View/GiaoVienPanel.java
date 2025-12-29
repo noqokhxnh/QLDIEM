@@ -4,12 +4,14 @@
  */
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -146,9 +148,9 @@ public class GiaoVienPanel extends JPanel {
         model = new DefaultTableModel(tencot, 0);
         tblGiaoVien = new JTable(model);
 
-        JPanel pnTable = new JPanel();
-        pnTable.add(tblGiaoVien.getTableHeader());
-        pnTable.add(tblGiaoVien);
+        JScrollPane scrollPane = new JScrollPane(tblGiaoVien);
+        JPanel pnTable = new JPanel(new BorderLayout());
+        pnTable.add(scrollPane, BorderLayout.CENTER);
 
         this.setLayout(new GridLayout(3, 1, 5, 5));
         this.add(pnForm);

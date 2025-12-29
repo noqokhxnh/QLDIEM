@@ -37,7 +37,11 @@ public class LopController implements MouseListener, ActionListener {
     public void mouseClicked(MouseEvent e) {
         int row = view.getTblLop().getSelectedRow();
         if (row >= 0) {
-            LopModel l = model.getDs().get(row);
+            String malop = view.getTblLop().getValueAt(row, 0).toString();
+            String tenlop = view.getTblLop().getValueAt(row, 1).toString();
+            String makhoa = view.getTblLop().getValueAt(row, 2) != null ? view.getTblLop().getValueAt(row, 2).toString() : "";
+            String magvcn = view.getTblLop().getValueAt(row, 3) != null ? view.getTblLop().getValueAt(row, 3).toString() : "";
+            LopModel l = new LopModel(malop, tenlop, makhoa, magvcn);
             view.fillform(l);
         }
     }

@@ -75,7 +75,7 @@ public class LopModel {
 
     public ArrayList<LopModel> getDs() {
         ArrayList<LopModel> list = new ArrayList<>();
-        String query = "SELECT * FROM tbllop";
+        String query = "SELECT * FROM tblclass";
         try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(query)) {
@@ -102,7 +102,7 @@ public class LopModel {
             return false;
         }
 
-        String query = "INSERT INTO tbllop (malop, tenlop, makhoa, magvcn) VALUES (?,?,?,?)";
+        String query = "INSERT INTO tblclass (malop, tenlop, makhoa, magvcn) VALUES (?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -142,7 +142,7 @@ public class LopModel {
     }
 
     public boolean deleteLop(String malop) {
-        String query = "DELETE FROM tbllop WHERE malop=?";
+        String query = "DELETE FROM tblclass WHERE malop=?";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, malop);
@@ -155,7 +155,7 @@ public class LopModel {
 
     public ArrayList<LopModel> search(String malopCanTim) {
         ArrayList<LopModel> list = new ArrayList<>();
-        String query = "SELECT * FROM tbllop WHERE malop LIKE ? OR tenlop LIKE ?";
+        String query = "SELECT * FROM tblclass WHERE malop LIKE ? OR tenlop LIKE ?";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
 
