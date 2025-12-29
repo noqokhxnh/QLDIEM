@@ -1,110 +1,141 @@
-# Quan Ly Diem (QLDIEM) - Hệ thống quản lý điểm sinh viên
+# Hệ Thống Quản Lý Điểm Sinh Viên (QLDIEM)
 
+## Mô tả
+Hệ thống quản lý điểm sinh viên được phát triển bằng Java Swing với giao diện hiện đại, hỗ trợ phân quyền người dùng và quản lý điểm tự động.
 
+## Tính năng chính
 
-## Mục lục
-1. [Fork repository](#fork-repository)
-2. [Gửi Pull Requests](#gửi-pull-requests)
+### 🔐 Phân quyền người dùng
+- **Admin (type = 0)**: Quản lý toàn bộ hệ thống
+- **Giáo viên (type = 1)**: Quản lý điểm môn học được phân công
+- **Sinh viên (type = 2)**: Xem điểm cá nhân
 
+### 📊 Quản lý điểm
+- ✅ Tự động tính điểm tổng kết (CC×10% + GK×30% + CK×60%)
+- ✅ Validation dữ liệu thông minh
+- ✅ Kiểm tra trùng lặp điểm
+- ✅ Tìm kiếm và lọc dữ liệu
+- ✅ Giao diện thân thiện với người dùng
 
-## Fork repository
+### 👥 Quản lý sinh viên & giáo viên
+- Thêm, sửa, xóa thông tin sinh viên
+- Quản lý lớp học và phân công giáo viên
+- Phân quyền môn học cho giáo viên
 
-1. **Truy cập repository**: Truy cập vào repository GitHub mà bạn muốn đóng góp.
+## Công nghệ sử dụng
 
-2. **Fork repository**:
-   - Nhấn vào nút "Fork" ở góc trên bên phải của trang repository.
-   - Chọn tài khoản GitHub của bạn khi được yêu cầu.
-   - Chờ GitHub tạo bản sao repository của bạn.
+- **Java SE**: Core programming language
+- **Java Swing**: GUI framework
+- **MySQL**: Database management
+- **JDBC**: Database connectivity
+- **Maven**: Build tool
 
-3. **Clone bản fork về máy cục bộ**:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/QLDIEM.git
-   cd QLDIEM
+## Cấu trúc dự án
+
+```
+src/main/java/
+├── connection/      # Database connection utilities
+├── Model/           # Data models và database operations
+├── View/            # UI components (Swing panels)
+└── Controller/      # Business logic controllers
+```
+
+## Cài đặt và chạy
+
+### Yêu cầu hệ thống
+- Java JDK 8 hoặc cao hơn
+- MySQL Server
+- JDBC Driver (mysql-connector-java)
+
+### Thiết lập database
+1. Import file `CREATE_DATABASE_COMPLETE.sql` vào MySQL
+2. Cập nhật thông tin kết nối trong `connection/DatabaseConnection.java`:
+   ```java
+   private static final String URL = "jdbc:mysql://localhost:3306/quanlydiem";
+   private static final String USERNAME = "your_username";
+   private static final String PASSWORD = "your_password";
    ```
 
-4. **Thiết lập remote upstream** (để giữ cho bản fork được đồng bộ):
-   ```bash
-   git remote add upstream https://github.com/ORIGINAL_OWNER/QLDIEM.git
-   ```
+### Cách chạy ứng dụng
 
-5. **Xác minh remote**:
-   ```bash
-   git remote -v
-   ```
+#### 🖱️ **Cách 1: Double-click (Windows)**
+```
+Double-click file `run.bat`
+```
 
-## Gửi Pull Requests
+#### 💻 **Cách 2: Command line**
+**Windows:**
+```cmd
+run.bat
+```
 
-### Trước khi tạo Pull Request
+**Linux/Mac:**
+```bash
+chmod +x run.sh
+./run.sh
+```
 
-1. **Cập nhật kho lưu trữ cục bộ của bạn**:
-   ```bash
-   # Chuyển sang nhánh chính
-   git checkout main
+#### ⚡ **Cách 3: Manual**
+```bash
+# Compile
+javac -cp "lib/*" -d target/classes src/main/java/**/*.java
 
-   # Lấy các thay đổi mới nhất từ upstream
-   git fetch upstream
+# Run
+java -cp "target/classes;lib/*" View.Main
+```
 
-   # Hợp nhất các thay đổi từ upstream
-   git merge upstream/main
+## Tài khoản mặc định
 
-   # Đẩy các cập nhật lên bản fork của bạn
-   git push origin main
-   ```
+| Username | Password | Quyền |
+|----------|----------|-------|
+| admin | admin | Admin |
+| gv001 | password | Giáo viên |
+| sv001 | password | Sinh viên |
 
-2. **Tạo một nhánh mới**:
-   ```bash
-   # Tạo và chuyển sang nhánh mới
-   git checkout -b feature-descriptive-branch-name
+## Tính năng nổi bật
 
-   # Đối với sửa lỗi
-   git checkout -b fix-descriptive-fix-name
-   ```
+### ⚡ Tự động tính điểm
+- Điểm tổng kết được tính real-time khi nhập điểm thành phần
+- Hiển thị xếp loại tự động (Xuất sắc, Giỏi, Khá, Trung bình, Yếu)
 
-3. **Thực hiện các thay đổi của bạn**:
-   - Tuân theo mẫu MVC như đã mô tả ở trên
-   - Viết các thông báo commit rõ ràng, ngắn gọn
-   - Viết các bài kiểm thử cho chức năng mới
+### 🛡️ Validation thông minh
+- Kiểm tra định dạng mã sinh viên, môn học
+- Validation điểm số (0-10)
+- Kiểm tra trùng lặp dữ liệu
 
-4. **Kiểm thử các thay đổi của bạn**:
-   - Chạy các bài kiểm thử hiện có để đảm bảo không có gì bị hỏng
-   - Thêm các bài kiểm thử mới nếu cần
-   - Xác minh rằng các thay đổi của bạn hoạt động như mong đợi
+### 🎨 Giao diện hiện đại
+- Material Design inspired
+- Responsive layout
+- Color-coded grade classification
 
-5. **Cam kết các thay đổi của bạn**:
-   ```bash
-   # Kiểm tra các tập tin đã thay đổi
-   git status
+## Cấu trúc Database
 
-   # Thêm các tập tin cụ thể
-   git add path/to/changed/files
+### Các bảng chính:
+- `tbluser`: Quản lý tài khoản đăng nhập
+- `tblsinhvien`: Thông tin sinh viên
+- `tblgiaovien`: Thông tin giáo viên
+- `tblclass`: Thông tin lớp học
+- `tblmonhoc`: Thông tin môn học
+- `tbldiem`: Điểm số sinh viên
+- `tblphancong`: Phân công giảng dạy
 
-   # Hoặc thêm tất cả các thay đổi (cẩn thận với điều này)
-   git add .
+## Troubleshooting
 
-   # Cam kết với một thông báo mô tả
-   git commit -m "Thêm mô tả chi tiết về các thay đổi"
-   ```
+### Lỗi kết nối Database:
+1. Kiểm tra MySQL server đang chạy
+2. Xác nhận thông tin kết nối trong `DatabaseConnection.java`
+3. Kiểm tra JDBC driver có trong classpath
 
-6. **Đẩy các thay đổi của bạn**:
-   ```bash
-   git push origin feature-descriptive-branch-name
-   ```
+### Lỗi compile:
+1. Kiểm tra Java JDK đã cài đặt
+2. Kiểm tra JAVA_HOME environment variable
+3. Đảm bảo tất cả file .java có syntax đúng
 
-### Tạo Pull Request
+## Đóng góp
+Mọi đóng góp và phản hồi đều được chào đón! Vui lòng tạo issue hoặc pull request.
 
-1. **Truy cập vào bản fork của bạn**: Truy cập vào kho lưu trữ bản fork của bạn trên GitHub.
+## Giấy phép
+MIT License
 
-2. **Chuyển sang nhánh của bạn**: Chọn nhánh nơi bạn đã thực hiện các thay đổi.
-
-3. **Nhấn vào "New Pull Request"**: GitHub sẽ phát hiện các thay đổi và đề xuất tạo một pull request mới.
-
-4. **Điền vào Pull Request**:
-   - **Tiêu đề**: Viết một tiêu đề rõ ràng, mô tả (tối đa 50 ký tự)
-   - **Mô tả**: Bao gồm thông tin chi tiết về các thay đổi của bạn:
-     - Lý do các thay đổi này là cần thiết
-     - Các thay đổi cụ thể đã được thực hiện
-     - Các thay đổi tuân theo mẫu MVC như thế nào
-     - Các thay đổi ảnh hưởng đến ứng dụng như thế nào
-     - Bất kỳ thông tin bổ sung nào người xem xét nên biết
-
-5. **Gửi Pull Request**: Nhấn vào "Create Pull Request"
+---
+*Hệ thống quản lý điểm sinh viên hiện đại và thân thiện*

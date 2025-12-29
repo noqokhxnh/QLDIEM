@@ -56,8 +56,8 @@ public class LoginModel {
 
 
 
-       public boolean checklogin(String username, String password) {
-        String query = "Select 1 from tbluser where `username` =? and `password` =?";
+       public Integer checklogin(String username, String password) {
+        String query = "SELECT type FROM tbluser WHERE username=? AND password=?";
         try (
                 Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query);
@@ -65,13 +65,15 @@ public class LoginModel {
             ps.setString(1, username);
             ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                if (rs.next()) {
+                    return rs.getInt("type"); // Trả về vai trò (0, 1, 2)
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null; // Đăng nhập thất bại
     }
 
 

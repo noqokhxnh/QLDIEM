@@ -85,28 +85,239 @@ public class SinhVienModel {
 
     public ArrayList<SinhVienModel> ds = new ArrayList<>();
 
-    public SinhVienModel  getData(String username) throws SQLException {
-       SinhVienModel sv = null;
-        String query = "Select * from tblsinhvien where username =?";
-        Connection conn = DatabaseConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1,username);
-
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()){
-            sv = new SinhVienModel(
-            rs.getString("username"),
-            rs.getString("masv"),
-            rs.getString("hoten"),
-            rs.getString("ngaysinh"),
-            rs.getString("gioitinh"),
-            rs.getString("diachi"),
-            rs.getString("malop")
-);
+    public SinhVienModel getData(String username) throws SQLException {
+        SinhVienModel sv = null;
+        String query = "SELECT * FROM tblsinhvien WHERE username = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, username);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    sv = new SinhVienModel(
+                        rs.getString("username"),
+                        rs.getString("masv"),
+                        rs.getString("hoten"),
+                        rs.getString("ngaysinh"),
+                        rs.getString("gioitinh"),
+                        rs.getString("diachi"),
+                        rs.getString("malop")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
-
-return sv;
+        
+        return sv;
+    }
+    
+    /**
+     * Lấy danh sách sinh viên trong một lớp
+     */
+    public ArrayList<SinhVienModel> getSinhVienByLop(String malop) {
+        ArrayList<SinhVienModel> list = new ArrayList<>();
+        String query = "SELECT * FROM tblsinhvien WHERE malop = ? ORDER BY masv";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, malop);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    SinhVienModel sv = new SinhVienModel(
+                        rs.getString("username"),
+                        rs.getString("masv"),
+                        rs.getString("hoten"),
+                        rs.getString("ngaysinh"),
+                        rs.getString("gioitinh"),
+                        rs.getString("diachi"),
+                        rs.getString("malop")
+                    );
+                    list.add(sv);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi SQL khi lấy sinh viên theo lớp: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định khi lấy sinh viên theo lớp: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /**
+     * Lấy tất cả sinh viên
+     */
+    public ArrayList<SinhVienModel> getAllSinhVien() {
+        ArrayList<SinhVienModel> list = new ArrayList<>();
+        String query = "SELECT * FROM tblsinhvien ORDER BY malop, masv";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            
+            while (rs.next()) {
+                SinhVienModel sv = new SinhVienModel(
+                    rs.getString("username"),
+                    rs.getString("masv"),
+                    rs.getString("hoten"),
+                    rs.getString("ngaysinh"),
+                    rs.getString("gioitinh"),
+                    rs.getString("diachi"),
+                    rs.getString("malop")
+                );
+                list.add(sv);
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi SQL khi lấy danh sách sinh viên: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định khi lấy danh sách sinh viên: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /**
+     * Thêm sinh viên vào lớp (cải tiến với transaction)
+     */
+    public boolean themSinhVien(SinhVienModel sv) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+            
+            // 1. Thêm user account vào tbluser
+            String userQuery = "INSERT INTO tbluser (username, password, type) VALUES (?, ?, ?)";
+            try (PreparedStatement userPs = conn.prepareStatement(userQuery)) {
+                userPs.setString(1, sv.getUsername());
+                userPs.setString(2, "123456"); // Default password
+                userPs.setInt(3, 2); // Type 2 = Sinh viên
+                userPs.executeUpdate();
+            }
+            
+            // 2. Thêm sinh viên vào tblsinhvien
+            String svQuery = "INSERT INTO tblsinhvien (masv, hoten, ngaysinh, gioitinh, diachi, malop, username) VALUES (?,?,?,?,?,?,?)";
+            try (PreparedStatement svPs = conn.prepareStatement(svQuery)) {
+                svPs.setString(1, sv.getMasv());
+                svPs.setString(2, sv.getHoten());
+                svPs.setString(3, sv.getNgaysinh());
+                svPs.setString(4, sv.getGioitinh());
+                svPs.setString(5, sv.getDiachi());
+                svPs.setString(6, sv.getMalop());
+                svPs.setString(7, sv.getUsername());
+                svPs.executeUpdate();
+            }
+            
+            conn.commit(); // Commit transaction
+            return true;
+            
+        } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback(); // Rollback on error
+            } catch (SQLException rollbackEx) {
+                System.err.println("Lỗi rollback: " + rollbackEx.getMessage());
+            }
+            System.err.println("Lỗi SQL khi thêm sinh viên: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            try {
+                if (conn != null) conn.rollback(); // Rollback on error
+            } catch (SQLException rollbackEx) {
+                System.err.println("Lỗi rollback: " + rollbackEx.getMessage());
+            }
+            System.err.println("Lỗi không xác định khi thêm sinh viên: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true); // Reset auto commit
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Lỗi đóng kết nối: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Cập nhật thông tin sinh viên
+     */
+    public boolean capNhatSinhVien(SinhVienModel sv) {
+        String query = "UPDATE tblsinhvien SET hoten=?, ngaysinh=?, gioitinh=?, diachi=?, malop=? WHERE masv=?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, sv.getHoten());
+            ps.setString(2, sv.getNgaysinh());
+            ps.setString(3, sv.getGioitinh());
+            ps.setString(4, sv.getDiachi());
+            ps.setString(5, sv.getMalop());
+            ps.setString(6, sv.getMasv());
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Lỗi SQL khi cập nhật sinh viên: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định khi cập nhật sinh viên: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Kiểm tra mã sinh viên đã tồn tại chưa
+     */
+    public boolean isExistMasv(String masv) {
+        String query = "SELECT COUNT(*) FROM tblsinhvien WHERE masv = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, masv);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi SQL khi kiểm tra mã sinh viên: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định khi kiểm tra mã sinh viên: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    /**
+     * Kiểm tra username đã tồn tại chưa
+     */
+    public boolean isExistUsername(String username) {
+        String query = "SELECT COUNT(*) FROM tbluser WHERE username = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi SQL khi kiểm tra username: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định khi kiểm tra username: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
