@@ -8,9 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.SinhVienPanel;
-import Model.SinhVienModel;
 import java.util.ArrayList;
+
+import Model.SinhVienModel;
+import View.SinhVienPanel;
 
 /**
  *

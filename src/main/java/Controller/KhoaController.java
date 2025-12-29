@@ -8,9 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.KhoaPanel;
-import Model.KhoaModel;
 import java.util.ArrayList;
+
+import Model.KhoaModel;
+import View.KhoaPanel;
 
 /**
  *
@@ -59,11 +60,11 @@ public class KhoaController implements MouseListener, ActionListener {
 
     private String validateInput(KhoaModel k) {
         if (k.getMakhoa() == null || k.getMakhoa().trim().isEmpty()) {
-            return "Mã khoa không được để trống!";
+            return "Mã khoa không được để trống";
         }
 
         if (k.getTenkhoa() == null || k.getTenkhoa().trim().isEmpty()) {
-            return "Tên khoa không được để trống!";
+                return "Tên khoa không được để trống!";
         }
 
         return null;
@@ -80,7 +81,7 @@ public class KhoaController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblKhoa().getSelectedRow() < 0) {
-                System.out.println("Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa");
                 return;
             }
             check = 2;
@@ -89,19 +90,19 @@ public class KhoaController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblKhoa().getSelectedRow();
             if (row < 0) {
-                System.out.println("Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa");
                 return;
             }
-            System.out.println("Bạn có chắc muốn xóa?");
+            System.out.println("Bạn có chắc muốn xóa");
             String makhoa = view.getTblKhoa().getValueAt(row, 0).toString();
 
             if (model.deleteKhoa(makhoa)) {
-                System.out.println("Xóa thành công!");
+                System.out.println("Xóa thành công");
                 view.loadtable(model.getDs());
 
                 view.clearform();
             } else {
-                System.out.println("Xóa thất bại!");
+                System.out.println("Xóa thất bại");
             }
         } else if (command.equals("Xác nhận")) {
             KhoaModel k = view.getformdata();
@@ -114,15 +115,15 @@ public class KhoaController implements MouseListener, ActionListener {
 
             if (check == 1) {
                 if (model.insertKhoa(k)) {
-                    System.out.println("Thêm thành công!");
+                    System.out.println("Thêm thành công");
                 } else {
-                    System.out.println("Thêm thất bại!");
+                    System.out.println("Thêm thất bại");
                 }
             } else if (check == 2) {
                 if (model.updateKhoa(k)) {
-                    System.out.println("Sửa thành công!");
+                    System.out.println("Sửa thành công");
                 } else {
-                    System.out.println("Sửa thất bại!");
+                    System.out.println("Sửa thất bại");
                 }
             }
 

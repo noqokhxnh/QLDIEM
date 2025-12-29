@@ -8,9 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.MonHocPanel;
-import Model.MonHocModel;
 import java.util.ArrayList;
+
+import Model.MonHocModel;
+import View.MonHocPanel;
 
 /**
  *
@@ -59,15 +60,15 @@ public class MonHocController implements MouseListener, ActionListener {
 
     private String validateInput(MonHocModel m) {
         if (m.getMamon() == null || m.getMamon().trim().isEmpty()) {
-            return "Mã môn học không được để trống!";
+            return "Mã môn học không được để trống";
         }
 
         if (m.getTenmon() == null || m.getTenmon().trim().isEmpty()) {
-            return "Tên môn học không được để trống!";
+            return "Tên môn học không được để trống";
         }
 
         if (m.getSotinchi() <= 0) {
-            return "Số tín chỉ phải lớn hơn 0!";
+            return "Số tín chỉ phải lớn hơn 0";
         }
 
         return null;
@@ -84,7 +85,7 @@ public class MonHocController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblMonHoc().getSelectedRow() < 0) {
-                System.out.println("Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa");
                 return;
             }
             check = 2;
@@ -93,19 +94,19 @@ public class MonHocController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblMonHoc().getSelectedRow();
             if (row < 0) {
-                System.out.println("Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa");
                 return;
             }
             System.out.println("Bạn có chắc muốn xóa?");
             String mamon = view.getTblMonHoc().getValueAt(row, 0).toString();
 
             if (model.deleteMonHoc(mamon)) {
-                System.out.println("Xóa thành công!");
+                System.out.println("Xóa thành công");
                 view.loadtable(model.getDs());
 
                 view.clearform();
             } else {
-                System.out.println("Xóa thất bại!");
+                System.out.println("Xóa thất bại");
             }
         } else if (command.equals("Xác nhận")) {
             MonHocModel m = view.getformdata();
@@ -118,15 +119,15 @@ public class MonHocController implements MouseListener, ActionListener {
 
             if (check == 1) {
                 if (model.insertMonHoc(m)) {
-                    System.out.println("Thêm thành công!");
+                    System.out.println("Thêm thành công");
                 } else {
-                    System.out.println("Thêm thất bại!");
+                    System.out.println("Thêm thất bại");
                 }
             } else if (check == 2) {
                 if (model.updateMonHoc(m)) {
-                    System.out.println("Sửa thành công!");
+                    System.out.println("Sửa thành công");
                 } else {
-                    System.out.println("Sửa thất bại!");
+                    System.out.println("Sửa thất bại");
                 }
             }
 

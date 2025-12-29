@@ -8,9 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import View.LopPanel;
-import Model.LopModel;
 import java.util.ArrayList;
+
+import Model.LopModel;
+import View.LopPanel;
 
 /**
  *
@@ -63,11 +64,11 @@ public class LopController implements MouseListener, ActionListener {
 
     private String validateInput(LopModel l) {
         if (l.getMalop() == null || l.getMalop().trim().isEmpty()) {
-            return "Mã lớp không được để trống!";
+            return "Mã lớp không được để trống";
         }
 
         if (l.getTenlop() == null || l.getTenlop().trim().isEmpty()) {
-            return "Tên lớp không được để trống!";
+            return "Tên lớp không được để trống";
         }
 
         return null;
@@ -84,7 +85,7 @@ public class LopController implements MouseListener, ActionListener {
 
         } else if (command.equals("Sửa")) {
             if (view.getTblLop().getSelectedRow() < 0) {
-                System.out.println("Vui lòng chọn dòng để sửa!");
+                System.out.println("Vui lòng chọn dòng để sửa");
                 return;
             }
             check = 2;
@@ -93,19 +94,19 @@ public class LopController implements MouseListener, ActionListener {
         } else if (command.equals("Xóa")) {
             int row = view.getTblLop().getSelectedRow();
             if (row < 0) {
-                System.out.println("Vui lòng chọn dòng để xóa!");
+                System.out.println("Vui lòng chọn dòng để xóa");
                 return;
             }
             System.out.println("Bạn có chắc muốn xóa?");
             String malop = view.getTblLop().getValueAt(row, 0).toString();
 
             if (model.deleteLop(malop)) {
-                System.out.println("Xóa thành công!");
+                System.out.println("Xóa thành công");
                 view.loadtable(model.getDs());
 
                 view.clearform();
             } else {
-                System.out.println("Xóa thất bại!");
+                System.out.println("Xóa thất bại");
             }
         } else if (command.equals("Xác nhận")) {
             LopModel l = view.getformdata();
@@ -118,15 +119,15 @@ public class LopController implements MouseListener, ActionListener {
 
             if (check == 1) {
                 if (model.insertLop(l)) {
-                    System.out.println("Thêm thành công!");
+                    System.out.println("Thêm thành công");
                 } else {
-                    System.out.println("Thêm thất bại!");
+                    System.out.println("Thêm thất bại");
                 }
             } else if (check == 2) {
                 if (model.updateLop(l)) {
-                    System.out.println("Sửa thành công!");
+                    System.out.println("Sửa thành công");
                 } else {
-                    System.out.println("Sửa thất bại!");
+                    System.out.println("Sửa thất bại");
                 }
             }
 
