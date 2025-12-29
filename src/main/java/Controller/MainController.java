@@ -2,11 +2,23 @@ package Controller;
 
 import Model.DiemModel;
 import Model.SinhVienModel;
+import Model.KhoaModel;
+import Model.MonHocModel;
+import Model.LopModel;
+import Model.GiaoVienModel;
 import View.DiemPanel;
+import View.KhoaPanel;
+import View.MonHocPanel;
+import View.LopPanel;
+import View.GiaoVienPanel;
 import View.MainLayout;
 import View.ThongTinTaiKhoan;
 import Controller.ThongTinTaiKhoanController;
 import Controller.DiemController;
+import Controller.KhoaController;
+import Controller.MonHocController;
+import Controller.LopController;
+import Controller.GiaoVienController;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -47,6 +59,34 @@ public class MainController {
             diemPanel.loadtable(diemModel.getDs());
         }
 
+        LopPanel lopPanel = getLopPanelFromLayout();
+        if (lopPanel != null) {
+            LopModel lopModel = new LopModel();
+            LopController lopController = new LopController(lopPanel, lopModel);
+            lopPanel.loadtable(lopModel.getDs());
+        }
+
+        GiaoVienPanel giaoVienPanel = getGiaoVienPanelFromLayout();
+        if (giaoVienPanel != null) {
+            GiaoVienModel giaoVienModel = new GiaoVienModel();
+            GiaoVienController giaoVienController = new GiaoVienController(giaoVienPanel, giaoVienModel);
+            giaoVienPanel.loadtable(giaoVienModel.getDs());
+        }
+
+        KhoaPanel khoaPanel = getKhoaPanelFromLayout();
+        if (khoaPanel != null) {
+            KhoaModel khoaModel = new KhoaModel();
+            KhoaController khoaController = new KhoaController(khoaPanel, khoaModel);
+            khoaPanel.loadtable(khoaModel.getDs());
+        }
+
+        MonHocPanel monHocPanel = getMonHocPanelFromLayout();
+        if (monHocPanel != null) {
+            MonHocModel monHocModel = new MonHocModel();
+            MonHocController monHocController = new MonHocController(monHocPanel, monHocModel);
+            monHocPanel.loadtable(monHocModel.getDs());
+        }
+
         initController();
 
     }
@@ -68,12 +108,55 @@ public class MainController {
     }
 
     private DiemPanel getDiemPanelFromLayout() {
-        CardLayout cl = view.getCardLayout();
         JPanel mainPanel = view.getMainPanel();
         
         for (Component comp : mainPanel.getComponents()) {
             if (comp instanceof DiemPanel) {
                 return (DiemPanel) comp;
+            }
+        }
+        return null;
+    }
+
+    private LopPanel getLopPanelFromLayout() {
+        JPanel mainPanel = view.getMainPanel();
+        
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof LopPanel) {
+                return (LopPanel) comp;
+            }
+        }
+        return null;
+    }
+
+    private GiaoVienPanel getGiaoVienPanelFromLayout() {
+        JPanel mainPanel = view.getMainPanel();
+        
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof GiaoVienPanel) {
+                return (GiaoVienPanel) comp;
+            }
+        }
+        return null;
+    }
+
+    private KhoaPanel getKhoaPanelFromLayout() {
+        JPanel mainPanel = view.getMainPanel();
+        
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof KhoaPanel) {
+                return (KhoaPanel) comp;
+            }
+        }
+        return null;
+    }
+
+    private MonHocPanel getMonHocPanelFromLayout() {
+        JPanel mainPanel = view.getMainPanel();
+        
+        for (Component comp : mainPanel.getComponents()) {
+            if (comp instanceof MonHocPanel) {
+                return (MonHocPanel) comp;
             }
         }
         return null;

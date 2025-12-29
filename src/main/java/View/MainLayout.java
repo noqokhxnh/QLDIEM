@@ -60,11 +60,11 @@ public class MainLayout extends JFrame {
 
 
         panel_main.add(new SinhVienPanel(), "SV");
-//        panel_main.add(new LopPanel(), "LOP");
+        panel_main.add(new LopPanel(), "LOP");
         panel_main.add(new DiemPanel(), "DIEM");
-//        panel_main.add(new GiaoVienPanel(), "GV");
-//        panel_main.add(new KhoaPanel(), "KHOA");
-//        panel_main.add(new MonHocPanel(), "MONHOC");
+        panel_main.add(new GiaoVienPanel(), "GV");
+        panel_main.add(new KhoaPanel(), "KHOA");
+        panel_main.add(new MonHocPanel(), "MONHOC");
 //        panel_main.add(new ThongTinTaiKhoan(), "TT"); // Đã được khởi tạo trong MainController với username
 
         add(panel_menu, BorderLayout.WEST);
