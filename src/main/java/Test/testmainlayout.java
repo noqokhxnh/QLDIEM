@@ -32,9 +32,9 @@ public class testmainlayout {
         SinhVienModel sinhVienModel = new SinhVienModel();
         ThongTinTaiKhoanController thongTinTaiKhoanController = new ThongTinTaiKhoanController(sinhVienModel,  thongTinTaiKhoanview, "sv001");
 
-                mainLayout.getMainPanel().add(diemview, "DIEM");
-                mainLayout.getMainPanel().add(thongTinTaiKhoanview, "TT");
-                MainController mainControl = new MainController(mainLayout, "sv001");
+//                mainLayout.getMainPanel().add(diemview, "DIEM");
+//                mainLayout.getMainPanel().add(thongTinTaiKhoanview, "TT");
+//                MainController mainControl = new MainController(mainLayout, "sv001");
 
                 mainLayout.setVisible(true);
 

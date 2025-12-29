@@ -93,5 +93,29 @@ public class LoginModel {
             }
         }
 
+        public int getUsertype(String username){
+            String query ="select type from tbluser where username =?";
+            int type = -1;
+            try (
+                    Connection conn = DatabaseConnection.getConnection();
+                    PreparedStatement ps = conn.prepareStatement(query);
+
+                    ){
+                ps.setString(1, username);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next())
+                {
+                   type = rs.getInt("type");
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+return type;
+
+        }
+
 
 }

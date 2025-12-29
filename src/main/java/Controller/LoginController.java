@@ -22,7 +22,7 @@ public class LoginController implements ActionListener, MouseListener {
 
     private LoginView view;
     private LoginModel model;
-
+    private int type;
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
@@ -32,10 +32,13 @@ public class LoginController implements ActionListener, MouseListener {
             String password = new String(view.getTxtPassword().getPassword());
 
             if (model.checklogin(username, password)) {
-                System.out.println(username+" da dang nhap");                
+
+                int type = model.getUsertype(username);
+
+                System.out.println(username+" da dang nhap");
                 view.dispose();
                 MainLayout mainLayout = new MainLayout();
-                MainController mainController = new MainController(mainLayout, username);
+                MainController mainController = new MainController(mainLayout, username, type);
                 mainLayout.setVisible(true);
             } else {
                 System.out.println("Dang nhap that bai");

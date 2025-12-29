@@ -16,13 +16,25 @@ public class MainController {
 
     private MainLayout view;
     private String username;
+    private int type;
  
-    public MainController(MainLayout view, String username) {
+    public MainController(MainLayout view, String username, int type) {
         this.view = view;
         this.username = username;
+        this.type =  type;
         view.setVisible(true);
 
-        // Khởi tạo ThongTinTaiKhoan với username
+
+
+        if (type ==0){
+            isAdmin();
+        }else if (type==1){
+            isTeacher();
+        }else if (type ==2){
+            isStudent();
+        }
+
+
         ThongTinTaiKhoan viewThongTinTaiKhoan = new ThongTinTaiKhoan();
         view.getMainPanel().add(viewThongTinTaiKhoan,"TT");
         SinhVienModel sinhVienModel = new SinhVienModel();
@@ -66,4 +78,21 @@ public class MainController {
         }
         return null;
     }
+
+    private void isAdmin(){
+
+
+    }
+
+    private void isStudent(){
+
+
+    }
+
+    private void isTeacher(){
+
+
+    }
+
+
 }
