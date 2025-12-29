@@ -4,7 +4,9 @@ import Model.LoginModel;
 import Model.SinhVienModel;
 import View.DoiMatKhau;
 import View.ThongTinTaiKhoan;
-
+import com.mysql.cj.util.TestUtils;
+import View.*;
+import Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,7 +32,12 @@ public class ThongTinTaiKhoanController implements ActionListener {
         } else if (cmd.equals("BTN_HUY")) {
             huy();
         }
-
+        if (cmd.equals("BTN_DANG_XUAT")){
+        View.LoginView lgview = new LoginView();
+        Model.LoginModel lgmodel = new LoginModel();
+        LoginController lgcontrol = new LoginController(lgview, lgmodel);
+        lgview.setVisible(true);
+        }
     }
 
 

@@ -53,6 +53,7 @@ public class ThongTinTaiKhoan extends JPanel {
         btnDoiMatKhau = new JButton("Đổi mật khẩu");
         btnDoiMatKhau.setActionCommand("BTN_DOI_MAT_KHAU");
         btnDangXuat = new JButton("Đăng xuất");
+        btnDangXuat.setActionCommand("BTN_DANG_XUAT");
 
         JPanel pnun = new JPanel(new GridLayout(1,2,5,5));
         JPanel pnsv = new JPanel(new GridLayout(1,2,5,5));
